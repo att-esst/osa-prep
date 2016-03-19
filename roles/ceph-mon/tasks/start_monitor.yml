@@ -1,0 +1,63 @@
+---
+- name: activate monitor with upstart
+  file:
+    path: /var/lib/ceph/mon/ceph-{{ monitor_name }}/{{ item }}
+    state: touch
+    owner: "{{ activate_file_owner }}"
+    group: "{{ activate_file_group }}"
+    mode: "{{ activate_file_mode }}"
+  changed_when: false
+  with_items:
+    - done
+    - upstart
+  when: ansible_distribution == "Ubuntu"
+
+- name: start and add that the monitor service to the init sequence (ubuntu)
+  service:
+    name: ceph-mon
+    state: started
+    enabled: yes
+    args: "id={{ monitor_name }}"
+  when: ansible_distribution == "Ubuntu"
+
+# NOTE (leseb): somehow the service ansible module is messing things up
+# as a safety measure we run the raw command
+- name: start and add that the monitor service to the init sequence
+  command: service ceph start mon
+  changed_when: false
+  when:
+    ansible_distribution != "Ubuntu" and
+    not is_ceph_infernalis
+
+- name: enable systemd unit file for mon instance (for or after infernalis)
+  file:
+    src: /usr/lib/systemd/system/ceph-mon@.service
+    dest: /etc/systemd/system/multi-user.target.wants/ceph-mon@{{ monitor_name }}.service
+    state: link
+  changed_when: false
+  failed_when: false
+  when:
+    ansible_distribution != "Ubuntu" and
+    is_ceph_infernalis
+
+- name: start and add that the monitor service to the init sequence (for or after infernalis)
+  service:
+      name: ceph-mon@{{ monitor_name }}
+      state: started
+      enabled: yes
+  changed_when: false
+  when:
+    ansible_distribution != "Ubuntu" and
+    is_ceph_infernalis
+
+- name: collect admin and bootstrap keys
+  command: ceph-create-keys --id {{ monitor_name }}
+  changed_when: false
+  failed_when:  false
+  when: cephx
+
+- name: get ceph monitor version
+  shell: ceph daemon mon."{{ monitor_name }}" version | cut -d '"' -f 4 | cut -f 1,2 -d '.'
+  changed_when: false
+  failed_when: "'No such file or directory' in ceph_version.stderr"
+  register: ceph_version

@@ -24,3 +24,9 @@
     - lvm2
     - tcpdump
     - vlan
+
+- name: add bonding to /etc/modules
+  lineinfile: dest=/etc/modules state=present line='bonding'
+
+- name: add 8021q to /etc/modules
+  lineinfile: dest=/etc/modules state=present line='8021q'
