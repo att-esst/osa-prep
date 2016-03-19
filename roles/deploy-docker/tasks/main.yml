@@ -12,11 +12,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#- name: print out operating system
-#  hosts: all
-#  gather_facts: True
-#  tasks:
-#  - debug: var=ansible_distribution
 
 - name: ensure https support for apt is installed
   apt: state=present pkg=apt-transport-https
@@ -26,6 +21,15 @@
   apt_key: keyserver=p80.pool.sks-keyservers.net id=58118E89F3A912897C070ADBF76221572C52609D
   when: docker_hosts == "true"
 
-- name: Trusty 14.04 LTE ensure the docker repository is present
+- name: ensure the docker repository is present
   apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-trusty main' state=present
   when: docker_hosts == "true"
+
+- name: update docker packages
+  apt: name={{ item }} update_cache=yes state=present state=latest
+  with_items:
+    - linux-image-extra-{{ ansible_kernel }}
+    - docker-engine
+
+- name: enable/start docker
+  service: name=docker state=started enabled=yes
