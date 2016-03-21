@@ -4,8 +4,19 @@ OSA-Prep is a starter collection of playbooks for the OSA Project. It will take 
 ## Steps to deploy
   1. Create your base-machine with Ubuntu 14.04 LTE
   2. Edit the inventory file according to your deployment
-  3. Run the playbooks `./setup.sh -i inventory.ini`
+  3. Run the playbooks `./setup.sh -i site.ini`
 
 Assumptions:
+These playbooks are designed to build infrastructure within an Openstack environment for testing various components of the OSA project (a highly customizable version Openstack within Openstack). If you'd like to use this project for your own purposes, then you should prepare your Ansible deployment environment like so:
 
-  * That you can access the hosts via ssh-keys or are set up in ~/.ssh/config correctly.
+  * Create entries in your ~/.ssh/config file for each of your servers like so:
+
+  ```
+  Host osa-cm01
+    User ubuntu
+    Hostname osa-cm01
+    IdentityFile <home-dir>/user/.ssh/<ssh-key>
+    StrictHostKeyChecking no
+  ```
+
+  * Next create an entry in your hostfile, or ensure that DNS is resolving for each if your hosts.

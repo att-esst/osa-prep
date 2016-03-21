@@ -1,4 +1,3 @@
----
 # Copyright 2016, AT&T, ASTRA, and it's Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,28 +11,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-- hosts: all
-  gather_facts: false
-  sudo: yes
-  roles:
-    - deploy-prep
-  tags:
-    - deploy-prep
-
-# Prepare Deployment Hosts
-- hosts: deploy-host
-  sudo: yes
-  roles:
-    - deploy-host
-    - deploy-ceph
-  tags:
-    - deploy-host
-
-# Prepare Target Hosts
-- hosts: target-host
-  sudo: yes
-  roles:
-    - target-host
-  tags:
-    - target-host
+#
+docker_hosts: true

@@ -16,4 +16,4 @@
 
 inventory=${INVENTORY:-inventory}
 
-ansible-playbook -i ${inventory} osa-prep.yml $@
+ansible-playbook -i ${inventory} site.yml $@
