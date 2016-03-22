@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  sudo: true
+  roles:
+    - ceph.ceph-common
+    - ceph-mon
+    - ceph-osd
+    - ceph-mds
+    - ceph-rgw
