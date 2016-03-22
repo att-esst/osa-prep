@@ -1,0 +1,49 @@
+---
+
+# DEPLOY CONTAINERIZED DAEMONS
+docker: false
+
+# DEFINE THE NUMBER OF VMS TO RUN
+mon_vms: 3
+osd_vms: 3
+mds_vms: 0
+rgw_vms: 0
+client_vms: 0
+
+# INSTALL SOURCE OF CEPH
+# valid values are 'stable' and 'dev'
+ceph_install_source: stable
+
+# SUBNET TO USE FOR THE VMS
+subnet: 192.168.42
+
+# MEMORY
+# set 1024 for CentOS
+memory: 256
+
+# Ethernet interface name
+# use eth1 for libvirt and ubuntu, enp0s8 for CentOS
+eth: 'eth1'
+
+# Disks
+# For libvirt use disks: "[ '/dev/vdb', '/dev/vdc' ]"
+disks: "[ '/dev/sdb', '/dev/sdc' ]"
+
+# VAGRANT BOX
+# Fedora: https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-Vagrant-22-20150521.x86_64.vagrant-virtualbox.box
+# Ubuntu: ubuntu/trusty64 or ubuntu/wily64
+# CentOS: bento/centos-7.1 or puppetlabs/centos-7.0-64-puppet
+# libvirt CentOS: centos/7
+# parallels Ubuntu: parallels/ubuntu-14.04
+# Debian: deb/jessie-amd64 - be careful the storage controller is named 'SATA Controller'
+# For more boxes have a look at:
+#   - https://atlas.hashicorp.com/boxes/search?utf8=✓&sort=&provider=virtualbox&q=
+#   - https://download.gluster.org/pub/gluster/purpleidea/vagrant/
+vagrant_box: ubuntu/trusty64
+
+# use vagrant_storagectl: 'SATA Controller' for CentOS
+vagrant_storagectl: 'SATAController'
+
+os_tuning_params:
+  - { name: kernel.pid_max, value: 4194303 }
+  - { name: fs.file-max, value: 26234859 }

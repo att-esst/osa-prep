@@ -1,0 +1,20 @@
+# Main Variables:
+osa_domain: jinkit.com
+
+# Ceph-Ansible Variables (Install the following):
+mon_group_name: mons
+osd_group_name: osds
+#rgw_group_name: ceph-rgw.yml
+#mds_group_name: ceph-mds.yml
+#restapi_group_name: ceph-restapi.yml
+
+# Ceph-Common
+#docker_group_name: deploy-docker.yml
+ceph_stable: true # use ceph stable branch
+ceph_stable_key: https://download.ceph.com/keys/release.asc
+ceph_stable_release: infernalis # ceph stable release
+ceph_stable_repo: "http://ceph.com/debian-{{ ceph_stable_release }}"
+monitor_interface: eth0 # interface
+journal_size: 1000
+public_network: 172.29.248.0/22 # 0.0.0.0/0
+cluster_network: "{{ public_network }}"

@@ -1,3 +1,4 @@
+---
 # Copyright 2016, AT&T, ASTRA, and it's Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,5 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-docker_hosts: true
+
+- name: ensure that docker is running
+  service: name=docker state=started
+  when: docker_hosts == "true"
