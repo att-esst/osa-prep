@@ -1,5 +1,5 @@
 # Main Variables:
-osa_domain: jinkit.com
+osa_domain: vlab.cso.att.com
 
 # Ceph-Ansible Variables (Install the following):
 mon_group_name: mons

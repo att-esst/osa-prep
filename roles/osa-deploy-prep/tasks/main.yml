@@ -18,6 +18,10 @@
   when: hostvars[item].ansible_default_ipv4.address is defined
   with_items: groups['all']
 
+- name: make sure that correct repositories are loaded
+  template: src=sources.list.j2 dest=/etc/apt/sources.list backup=yes owner=root group=root mode="u=rw,g=r,o=r"
+  when: ansible_distribution == 'Ubuntu'
+
 - name: add prerequisites for the deploy-host
   apt: name={{ item }} update_cache=yes state=present state=latest
   with_items:
