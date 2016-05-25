@@ -23,4 +23,4 @@
   ignore_errors: yes
 
 - name: download openstack-ansible project
-  git: repo=https://github.com/openstack/openstack-ansible.git dest=/opt/openstack-ansible update=no
+  git: repo=https://github.com/openstack/openstack-ansible.git version={{osa_snapshot}} dest=/opt/openstack-ansible update=no

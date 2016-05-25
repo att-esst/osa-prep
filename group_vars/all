@@ -1,5 +1,6 @@
 # Main Variables:
 osa_domain: vlab.cso.att.com
+osa_snapshot: 
 
 # Ceph-Ansible Variables (Install the following):
 mon_group_name: mons
