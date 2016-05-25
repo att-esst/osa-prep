@@ -1,0 +1,70 @@
+# Copyright 2016, AT&T, ASTRA, and it's Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+auto br-mgmt
+iface br-mgmt inet static
+    bridge_stp off
+    bridge_waitport 10
+    bridge_fd 0
+    # Since we don't have exactly the best view of what's going on...
+    bridge_ports none # eth1
+    address 172.29.236.100
+    netmask 255.255.252.0
+    offload-sg off
+
+auto br-flat
+iface br-flat inet static
+    bridge_stp off
+    bridge_waitport 10
+    bridge_fd 0
+    bridge_ports none # eth2
+    address 172.29.248.100
+    netmask 255.255.252.0
+    offload-sg off
+
+auto br-vlan
+iface br-vlan inet manual
+    bridge_stp off
+    bridge_waitport 10
+    bridge_fd 0
+    bridge_ports none # eth3
+    offload-sg off
+
+auto br-vxlan
+iface br-vxlan inet static
+    bridge_stp off
+    bridge_waitport 10
+    bridge_fd 0
+    bridge_ports none # eth4
+    address 172.29.240.100
+    netmask 255.255.252.0
+    offload-sg off
+    # To ensure ssh checksum is correct
+    up /sbin/iptables -A POSTROUTING -t mangle -p tcp --dport 22 -j CHECKSUM --checksum-fill
+    down /sbin/iptables -D POSTROUTING -t mangle -p tcp --dport 22 -j CHECKSUM --checksum-fill
+    # To provide internet connectivity to instances
+    up /sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+    down /sbin/iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+    # Make sure instances can talk to the metadata server
+    up /sbin/iptables -t mangle -A POSTROUTING -p tcp --sport 80 -j CHECKSUM --checksum-fill
+
+auto br-storage
+iface br-storage inet static
+    bridge_stp off
+    bridge_waitport 10
+    bridge_fd 0
+    bridge_ports none # eth5
+    address 172.29.244.100
+    netmask 255.255.252.0
+    offload-sg off

@@ -1,6 +1,8 @@
 # Main Variables:
 osa_domain: vlab.cso.att.com
-osa_snapshot: 
+
+# "osa_snapshot" is either a branch, tag or full hex of the upstream osad project
+osa_snapshot:
 
 # Ceph-Ansible Variables (Install the following):
 mon_group_name: mons

@@ -29,6 +29,7 @@
     - ntpdate
     - openssh-server
     - sudo
+    - vim
 
 - name: set timezone to America/New_York
   raw: echo "America/New_York" | sudo tee /etc/timezone
