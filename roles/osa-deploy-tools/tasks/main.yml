@@ -1,0 +1,41 @@
+---
+# Copyright 2016, AT&T, ASTRA, and it's Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: make vi great again
+  lineinfile:
+    dest: /root/.vim
+    regexp: '^'
+    line: 'sytax on'
+    state: present
+    create: True
+  tags:
+    - osa-deploy-tools
+
+- name: making vi great for root account
+  lineinfile:
+    dest: /root/.bash_profile
+    regexp: '^'
+    line: 'alias vi="vim"'
+    state: present
+    create: True
+  tags:
+    - osa-deploy-tools
+
+- name: add additional tools for troubleshooting
+  apt: name={{ item }} update_cache=yes state=present state=latest
+  with_items:
+    - ethtool
+  tags:
+    - osa-deploy-tools

@@ -1,0 +1,58 @@
+# Copyright 2016, AT&T, ASTRA, and it's Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Container management bridge
+auto br-mgmt
+iface br-mgmt inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    # Bridge port references tagged interface
+    bridge_ports {{vworks_vlan_2200}}
+    address {{osad_br_mgnt_ipaddr}}
+    netmask {{osad_br_mgnt_submsk}}
+    # gateway 10.2.31.1
+    dns-nameservers {{vworks_host_namesrv}}
+    dns-search {{vworks_host_sdomain}}
+
+# Storage bridge (optional)
+auto br-storage
+iface br-storage inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    # Bridge port reference tagged interface
+    bridge_ports {{vworks_vlan_2098}}
+    address {{osad_br_stor_ipaddr}}
+    netmask {{osad_br_stor_submsk}}
+
+# OpenStack Networking VLAN bridge
+auto br-vlan
+iface br-vlan inet manual
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    # Bridge port references untagged interface
+    bridge_ports {{vworks_bond1}}
+
+# OpenStack Networking VXLAN (tunnel/overlay) bridge
+auto br-vxlan
+iface br-vxlan inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    # Bridge port references tagged interface
+    bridge_ports {{vworks_vlan_2201}}
+    address {{osad_br_tunn_ipaddr}}
+    netmask {{osad_br_tunn_submsk}}

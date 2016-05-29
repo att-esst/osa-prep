@@ -23,6 +23,14 @@
   tags:
     - osa-deploy-prep
 
+- hosts: all
+  gather_facts: true
+  sudo: yes
+  roles:
+    - osa-deploy-tools
+  tags:
+    - osa-deploy-tools
+
 # Deployment Hosts
 - hosts: deploy-host
   sudo: yes
@@ -38,6 +46,13 @@
     - osa-target-host
   tags:
     - osa-target-host
+
+- hosts: target-host
+  sudo: yes
+  roles:
+    - osa-deploy-networking
+  tags:
+    - osa-deploy-networking
 
 # WHEN DEPLOYING CEPH VIA DOCKER:
 # Docker Hosts

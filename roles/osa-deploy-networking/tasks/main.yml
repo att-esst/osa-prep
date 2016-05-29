@@ -13,24 +13,83 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Ensure that /etc/network/interfaces.d/ exists
+- name: ensure that /etc/network/interfaces.d/ exists
   file:
     path: /etc/network/interfaces.d/
     state: directory
   tags:
     - networking-dir-create
 
-- name: Copy network configuration
-  template:
-    src: vworks-deploy.cfg.j2
-    dest: /etc/network/interfaces.d/vworks-deploy.cfg
-  register: osa_interfaces
-  tags:
-    - networking-interfaces-file
+#- name: copy network configuration
+#  template:
+#    src: vworks-deploy.cfg.j2
+#    dest: /etc/network/interfaces.d/vworks-deploy.cfg
+#  register: osa_interfaces
+#  tags:
+#    - networking-interfaces-file
 
-- name: Ensure our interfaces.d configuration files are loaded automatically
+- name: make sure that we have our modules loaded first
+  template:
+    src: modules.j2
+    dest: /etc/modules
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  tags:
+    - vworks-network-deploy
+
+- name: make sure that the physical interfaces are loaded first
+  template:
+    src: interfaces-mm.j2
+    dest: /etc/network/interfaces
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: vworks_deployment_type == 'mm'
+  tags:
+    - vworks-network-deploy
+
+- name: now load up the bonds for our physical interfaces
+  template:
+    src: vworks-bonds.cfg.j2
+    dest: /etc/network/interfaces.d/vworks-bonds.cfg
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: vworks_deployment_type == 'mm'
+  tags:
+    - vworks-network-deploy
+
+- name: now load up the vlans
+  template:
+    src: vworks-vlans.cfg.j2
+    dest: /etc/network/interfaces.d/vworks-vlans.cfg
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: vworks_deployment_type == 'mm'
+  tags:
+    - vworks-network-deploy
+
+- name: load interfaces required by openstack-ansible
+  template:
+    src: vworks-osad.cfg.j2
+    dest: /etc/network/interfaces.d/vworks-osad.cfg
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: vworks_deployment_type == 'mm'
+  tags:
+    - vworks-network-deploy
+
+- name: ensure our interfaces.d configuration files are loaded automatically
   lineinfile:
     dest: /etc/network/interfaces
     line: "source /etc/network/interfaces.d/*.cfg"
   tags:
-    - networking-interfaces-load
+    - vworks-network-deploy

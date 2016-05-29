@@ -2,11 +2,11 @@
 osa_domain: vlab.cso.att.com
 
 # "osa_snapshot" is either a branch, tag or full hex of the upstream osad project
-osa_snapshot:
+osa_snapshot: 13.0.1
 
 # Ceph-Ansible Variables (Install the following):
-mon_group_name: mons
-osd_group_name: osds
+#mon_group_name: mons
+#osd_group_name: osds
 #rgw_group_name: ceph-rgw.yml
 #mds_group_name: ceph-mds.yml
 #restapi_group_name: ceph-restapi.yml

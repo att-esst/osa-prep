@@ -1,0 +1,41 @@
+# Copyright 2016, AT&T, ASTRA, and it's Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+auto {{vworks_eth2}}
+  iface {{vworks_eth2}} inet manual
+   bond-master {{vworks_bond0}}
+
+auto {{vworks_eth3}}
+  iface {{vworks_eth3}} inet manual
+    bond-master {{vworks_bond0}}
+
+auto {{vworks_eth4}}
+  iface {{vworks_eth4}} inet manual
+    bond-master {{vworks_bond1}}
+
+auto {{vworks_eth5}}
+  iface {{vworks_eth5}} inet manual
+    bond-master {{vworks_bond2}}
+
+auto {{vworks_eth6}}
+  iface {{vworks_eth6}} inet manual
+    bond-master {{vworks_bond1}}
+    bond-primary {{vworks_eth6}}
+
+auto {{vworks_eth7}}
+  iface {{vworks_eth7}} inet manual
+    bond-master {{vworks_bond2}}
+    bond-primary {{vworks_eth7}}
+
+source /etc/network/interfaces.d/*.cfg
