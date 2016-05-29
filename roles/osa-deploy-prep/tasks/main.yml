@@ -13,15 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: build /etc/hosts
-  lineinfile:
-    dest: /etc/hosts
-    regexp: '.*{{ item }}$'
-    line: "{{ hostvars[item].ansible_default_ipv4.address }} {{item}} {{item}}.{{osa_domain}}"
-    state: present
-  when: hostvars[item].ansible_default_ipv4.address is defined
-  with_items: groups['all']
-
 - name: make sure that correct repositories are loaded
   template:
     src: sources.list.j2

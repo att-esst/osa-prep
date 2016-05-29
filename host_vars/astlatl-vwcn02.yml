@@ -12,7 +12,6 @@ vworks_ms_submsk:
 vworks_ms_gateway:
 vworks_ms_namesrv:
 
-
 # vWorks Environment: Deployment Type
 #   Options: aio, compute, infra, log
 #   Multi-node, Single-node / Multi-NIC, Single-NIC
@@ -92,12 +91,11 @@ vworks_vlid_103: 103
 vworks_vlan_2200: bond1.2200
 vworks_vlid_2200: 2200
 vworks_vlan_2201: bond1.2201
-vworks_vlid_2200: 2202
+vworks_vlid_2201: 2201
 vworks_vlan_2202: bond1.2202
-vworks_vlid_2200: 2202
+vworks_vlid_2202: 2202
 vworks_vlan_2098: bond2.2098
-vworks_vlid_2200: 2098
-
+vworks_vlid_2098: 2098
 
 #   IP Address Definitions (VLANs)
 vworks_vlan0_ipaddr:

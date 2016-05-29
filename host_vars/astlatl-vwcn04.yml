@@ -3,19 +3,29 @@
 #   Multi-node, Single-node / Multi-NIC, Single-NIC
 vworks_deployment_type: mm
 
+# vWorks Environment: AIO Deployment
+#   If "ms" is selected complete this section
+#   Only use for Multi-node/Single-NIC Installations
+vworks_ms_iface:
+vworks_ms_ipaddr:
+vworks_ms_submsk:
+vworks_ms_gateway:
+vworks_ms_namesrv:
+
 # vWorks Environment: Deployment Type
 #   Options: aio, compute, infra, log
 #   Multi-node, Single-node / Multi-NIC, Single-NIC
 vworks_osad_type: compute
 
 # vWorks Environment: Networking
-#   - Networking Defaults
+#   Networking Defaults
 vworks_host_gateway: 10.2.1.1
 vworks_host_namesrv: 10.2.1.4
 vworks_host_sdomain: vlab.cso.att.com
 
 # vWorks Environment: Networking
-#   - OSAD Required Definitions
+#   OSAD Required Definitions
+#   mgmt=br-mgmt, stor=br-storage, vlan=br-vlan, tunn=br-vxlan
 osad_br_mgnt_ipaddr: 10.2.31.35
 osad_br_mgnt_submsk: 255.255.255.0
 osad_br_stor_ipaddr: 172.20.98.131
@@ -26,7 +36,7 @@ osad_br_tunn_ipaddr: 172.22.1.35
 osad_br_tunn_submsk: 255.255.255.0
 
 # vWorks Environment: Networking
-#   - Physical Definitions
+#   Physical Definitions
 vworks_eth0: eth0
 vworks_eth1: eth1
 vworks_eth2: eth2
@@ -36,7 +46,7 @@ vworks_eth5: p4p2
 vworks_eth6: p10p1
 vworks_eth7: p10p2
 
-#   - IP Address Definitions (Ethernet)
+#   IP Address Definitions (Ethernet)
 vworks_eth0_ipaddr:
 vworks_eth0_submsk:
 vworks_eth1_ipaddr:
@@ -55,12 +65,12 @@ vworks_eth7_ipaddr:
 vworks_eth7_submsk:
 
 # vWorks Environment: Networking
-#   - Bonding Definitions
+#   Bonding Definitions
 vworks_bond0: bond0
 vworks_bond1: bond1
 vworks_bond2: bond2
 
-#   - IP Address Definitions (Bonding)
+#   IP Address Definitions (Bonding)
 vworks_bond0_ipaddr: 10.2.1.155
 vworks_bond0_submsk: 255.255.255.0
 vworks_bond1_ipaddr:
@@ -69,13 +79,23 @@ vworks_bond2_ipaddr:
 vworks_bond2_submsk:
 
 # vWorks Environment: Networking
-#   - VLAN Definitions
+#   VLAN Definitions
+vworks_vlan_101: br-vlan.101
+vworks_vlid_101: 101
+vworks_vlan_102: br-vlan.102
+vworks_vlid_102: 102
+vworks_vlan_103: br-vlan.103
+vworks_vlid_103: 103
 vworks_vlan_2200: bond1.2200
+vworks_vlid_2200: 2200
 vworks_vlan_2201: bond1.2201
+vworks_vlid_2201: 2201
 vworks_vlan_2202: bond1.2202
+vworks_vlid_2202: 2202
 vworks_vlan_2098: bond2.2098
+vworks_vlid_2098: 2098
 
-#   - IP Address Definitions (VLANs)
+#   IP Address Definitions (VLANs)
 vworks_vlan0_ipaddr:
 vworks_vlan0_submsk:
 vworks_vlan1_ipaddr:

@@ -54,6 +54,21 @@
   tags:
     - osa-deploy-networking
 
+- hosts: target-host
+  sudo: yes
+  roles:
+    - osa-deploy-networking
+  tags:
+    - osa-deploy-networking
+
+# Logging Hosts
+- hosts: logging-host
+  sudo: yes
+  roles:
+    - osa-deploy-networking
+  tags:
+    - osa-deploy-networking
+
 # WHEN DEPLOYING CEPH VIA DOCKER:
 # Docker Hosts
 #- hosts: docker-host
