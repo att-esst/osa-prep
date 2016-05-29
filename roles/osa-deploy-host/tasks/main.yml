@@ -20,6 +20,8 @@
     - build-essential
     - git
     - python-dev
+    - libffi-dev
+    - libssl-dev
   ignore_errors: yes
 
 - name: download openstack-ansible project

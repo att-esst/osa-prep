@@ -44,3 +44,8 @@
   raw: dpkg-reconfigure --frontend noninteractive tzdata
   notify:
     - restart ntp
+
+- name: upgrade all packages to the latest
+  apt: upgrade=dist
+  tags:
+    - vworks-full-dist-upgrade
