@@ -51,6 +51,17 @@
   tags:
     - vworks-network-deploy
 
+- name: create separate route tables for bond interfaces
+  lineinfile:
+    dest: /etc/iproute2/rt_tables
+    regexp: '^'
+    line: '1 rt2'
+    state: present
+    create: True
+  when: vworks_deployment_type == 'mm'
+  tags:
+    - vworks-network-deploy
+
 - name: now load up the bonds for our physical interfaces
   template:
     src: vworks-bonds.cfg.j2

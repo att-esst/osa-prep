@@ -85,9 +85,9 @@ iface br-mgmt inet static
     bridge_fd 0
     bridge_ports {{vworks_vlan_102}}  # Notice the bridge port is the vlan tagged interface
     offload-sg off
-    address {{osad_br_mgnt_ipaddr}}
-    netmask {{osad_br_mgnt_submsk}}
-    gateway {{osad_br_mgnt_gatewy}}
+    address {{osad_br_mgmt_ipaddr}}
+    netmask {{osad_br_mgmt_submsk}}
+    gateway {{osad_br_mgmt_gatewy}}
     dns-nameservers {{vworks_host_namesrv}}
 
 

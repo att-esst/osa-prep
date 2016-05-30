@@ -17,8 +17,12 @@ vworks_ms_namesrv:
 #   Multi-node, Single-node / Multi-NIC, Single-NIC
 vworks_osad_type: infra
 
+# vWorks Environment: Deploy Swift
+#   Options: true, false
+swift_host_deploy: true
+
 # vWorks Environment: Networking
-#   - Networking Defaults
+#   Networking Defaults
 vworks_host_gateway: 10.2.1.1
 vworks_host_namesrv: 10.2.1.4
 vworks_host_sdomain: vlab.cso.att.com
@@ -26,17 +30,23 @@ vworks_host_sdomain: vlab.cso.att.com
 # vWorks Environment: Networking
 #   OSAD Required Definitions
 #   mgmt=br-mgmt, stor=br-storage, vlan=br-vlan, tunn=br-vxlan
-osad_br_mgnt_ipaddr: 10.2.31.11
-osad_br_mgnt_submsk: 255.255.255.0
+osad_br_mgmt_ipaddr: 10.2.31.11
+osad_br_mgmt_netwrk: 10.2.31.0
+osad_br_mgmt_submsk: 255.255.255.0
+osad_br_mgmt_bitmsk: 24
+osad_br_mgmt_gatewy: 10.2.31.1
 osad_br_stor_ipaddr: 172.20.98.99
+osad_br_stor_netwrk: 172.20.98.0
 osad_br_stor_submsk: 255.255.255.0
+osad_br_stor_bitmsk: 24
+osad_br_stor_gatewy: 172.20.98.1
 osad_br_vlan_ipaddr:
 osad_br_vlan_submsk:
 osad_br_tunn_ipaddr: 172.22.1.11
 osad_br_tunn_submsk: 255.255.255.0
 
 # vWorks Environment: Networking
-#   - Physical Definitions
+#   Physical Definitions
 vworks_eth0: eth0
 vworks_eth1: eth1
 vworks_eth2: eth2
@@ -46,7 +56,7 @@ vworks_eth5: p4p2
 vworks_eth6: p10p1
 vworks_eth7: p10p2
 
-#   - IP Address Definitions (Ethernet)
+#   IP Address Definitions (Ethernet)
 vworks_eth0_ipaddr:
 vworks_eth0_submsk:
 vworks_eth1_ipaddr:
@@ -65,12 +75,12 @@ vworks_eth7_ipaddr:
 vworks_eth7_submsk:
 
 # vWorks Environment: Networking
-#   - Bonding Definitions
+#   Bonding Definitions
 vworks_bond0: bond0
 vworks_bond1: bond1
 vworks_bond2: bond2
 
-#   - IP Address Definitions (Bonding)
+#   IP Address Definitions (Bonding)
 vworks_bond0_ipaddr: 10.2.1.150
 vworks_bond0_submsk: 255.255.255.0
 vworks_bond1_ipaddr:
@@ -95,7 +105,7 @@ vworks_vlid_2202: 2202
 vworks_vlan_2098: bond2.2098
 vworks_vlid_2098: 2098
 
-#   - IP Address Definitions (VLANs)
+#   IP Address Definitions (VLANs)
 vworks_vlan0_ipaddr:
 vworks_vlan0_submsk:
 vworks_vlan1_ipaddr:

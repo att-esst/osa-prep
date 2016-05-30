@@ -31,9 +31,19 @@
     - openssh-server
     - sudo
     - vim
+    - traceroute
     - ifenslave-2.6
     - vlan
     - bridge-utils
+  tags:
+    - vworks-install-prereqs
+
+- name: swift deployment preparation
+  apt: name={{ item }} update_cache=yes state=present state=latest
+  with_items:
+    - xfsprogs
+  when: swift_host_deploy == 'true'
+  ignore_errors: true
   tags:
     - vworks-install-prereqs
 
@@ -49,3 +59,9 @@
   apt: upgrade=dist
   tags:
     - vworks-full-dist-upgrade
+
+# vWorks: Change not needed when running OSAD playbooks in order. This was a test.
+#- name: WORKAROUND add apt-keys for OSAD
+#  raw: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7C33BDC6
+#  tags:
+#    - vworks-workarounds

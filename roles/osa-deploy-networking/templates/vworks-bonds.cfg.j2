@@ -26,12 +26,12 @@ auto {{vworks_bond0}}
 
 auto {{vworks_bond1}}
   iface {{vworks_bond1}} inet manual
-    bond-mode balance-alb
+    bond-mode active-backup
     bond-miimon 100
     bond-slaves {{vworks_eth4}} {{vworks_eth6}}
 
 auto {{vworks_bond2}}
   iface {{vworks_bond2}} inet manual
-    bond-mode balance-alb
+    bond-mode active-backup
     bond-miimon 100
     bond-slaves {{vworks_eth5}} {{vworks_eth7}}

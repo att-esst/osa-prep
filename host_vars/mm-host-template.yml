@@ -15,7 +15,7 @@ vworks_ms_namesrv:
 # vWorks Environment: Deployment Type
 #   Options: aio, compute, infra, log
 #   Multi-node, Single-node / Multi-NIC, Single-NIC
-vworks_osad_type: log
+vworks_osad_type:
 
 # vWorks Environment: Deploy Swift
 #   Options: true, false
@@ -23,27 +23,27 @@ vworks_osad_type: log
 
 # vWorks Environment: Networking
 #   Networking Defaults
-vworks_host_gateway: 10.2.1.1
-vworks_host_namesrv: 10.2.1.4
-vworks_host_sdomain: vlab.cso.att.com
+vworks_host_gateway:
+vworks_host_namesrv:
+vworks_host_sdomain:
 
 # vWorks Environment: Networking
 #   OSAD Required Definitions
 #   mgmt=br-mgmt, stor=br-storage, vlan=br-vlan, tunn=br-vxlan
-osad_br_mgmt_ipaddr: 10.2.31.248
-osad_br_mgmt_netwrk: 10.2.31.0
-osad_br_mgmt_submsk: 255.255.255.0
-osad_br_mgmt_bitmsk: 24
-osad_br_mgmt_gatewy: 10.2.31.1
-osad_br_stor_ipaddr: 172.20.98.248
-osad_br_stor_netwrk: 172.20.98.0
-osad_br_stor_submsk: 255.255.255.0
-osad_br_stor_bitmsk: 24
-osad_br_stor_gatewy: 172.20.98.1
+osad_br_mgmt_ipaddr:
+osad_br_mgmt_netwrk:
+osad_br_mgmt_submsk:
+osad_br_mgmt_bitmsk:
+osad_br_mgmt_gatewy:
+osad_br_stor_ipaddr:
+osad_br_stor_netwrk:
+osad_br_stor_submsk:
+osad_br_stor_bitmsk:
+osad_br_stor_gatewy:
 osad_br_vlan_ipaddr:
 osad_br_vlan_submsk:
-osad_br_tunn_ipaddr: 172.22.1.248
-osad_br_tunn_submsk: 255.255.255.0
+osad_br_tunn_ipaddr:
+osad_br_tunn_submsk:
 
 # vWorks Environment: Networking
 #   Physical Definitions
@@ -81,8 +81,8 @@ vworks_bond1: bond1
 vworks_bond2: bond2
 
 #   IP Address Definitions (Bonding)
-vworks_bond0_ipaddr: 10.2.1.154
-vworks_bond0_submsk: 255.255.255.0
+vworks_bond0_ipaddr:
+vworks_bond0_submsk:
 vworks_bond1_ipaddr:
 vworks_bond1_submsk:
 vworks_bond2_ipaddr:

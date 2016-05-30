@@ -20,11 +20,15 @@ iface br-mgmt inet static
     bridge_fd 0
     # Bridge port references tagged interface
     bridge_ports {{vworks_vlan_2200}}
-    address {{osad_br_mgnt_ipaddr}}
-    netmask {{osad_br_mgnt_submsk}}
-    # gateway 10.2.31.1
-    dns-nameservers {{vworks_host_namesrv}}
+    address {{osad_br_mgmt_ipaddr}}
+    netmask {{osad_br_mgmt_submsk}}
+    gateway {{osad_br_mgmt_gatewy}}
+    dns-nameservers 8.8.8.8 # {{vworks_host_namesrv}}
     dns-search {{vworks_host_sdomain}}
+    post-up ip route add {{osad_br_mgmt_netwrk}}/{{osad_br_mgmt_bitmsk}} dev br-mgmt src {{osad_br_mgmt_ipaddr}} table rt2
+    post-up ip route add default via {{osad_br_mgmt_gatewy}} dev br-mgmt table rt2
+    post-up ip rule add from {{osad_br_mgmt_ipaddr}}/32 table rt2
+    post-up ip rule add to {{osad_br_mgmt_ipaddr}}/32 table rt2
 
 # Storage bridge (optional)
 auto br-storage
