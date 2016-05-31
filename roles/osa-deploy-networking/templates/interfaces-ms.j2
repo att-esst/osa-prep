@@ -1,0 +1,112 @@
+# Copyright 2016, AT&T, ASTRA, and it's Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Placeholder for an AIO Deployment (to be completed TBD)
+# Physical interface
+# ------------------
+# All nodes will have some physical interface
+auto {{att_ms_iface}}
+iface {{att_ms_iface}} inet static
+    address {{att_ms_ipaddr}}
+    netmask {{att_ms_submsk}}
+    gateway {{att_ms_gateway}}
+    dns-nameservers {{att_ms_namesrv}}
+
+
+# Bridge for vlan network
+# -----------------------
+# Used by all compute and network nodes
+# The IP address on this device is optional
+auto br-vlan
+iface br-vlan inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports {{att_ms_iface}}
+    offload-sg off
+    address {{osad_br_vlan_ipaddr}}
+    netmask {{osad_br_vlan_submsk}}
+    gateway {{att_host_gateway}}
+    dns-nameservers {{att_host_namesrv}}
+
+
+# Tagged vlan network interfaces
+# ------------------------------
+# Used in various bridges
+auto {{att_vlan_101}}
+iface {{att_vlan_101}} inet manual
+    vlan-raw-device br-vlan
+    vlan_id {{att_vlid_101}}
+
+auto {{att_vlan_102}}
+iface {{att_vlan_102}} inet manual
+    vlan-raw-device br-vlan
+    vlan_id {{att_vlid_102}}
+
+auto {{att_vlan_103}}
+iface {{att_vlan_103}} inet manual
+    vlan-raw-device br-vlan
+    vlan_id {{att_vlid_103}}
+
+
+# Bridge for vxlan network
+# ------------------------
+# Used by all compute and network nodes
+auto br-vxlan
+iface br-vxlan inet manual
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports {{att_vlan_101}}  # Notice the bridge port is the vlan tagged interface
+    offload-sg off
+    address {{osad_br_tunn_ipaddr}}
+    netmask {{osad_br_tunn_submsk}}
+    dns-nameservers {{att_host_namesrv}}
+
+
+# Bridge for management network
+# -----------------------------
+# Used by all nodes
+auto br-mgmt
+iface br-mgmt inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports {{att_vlan_102}}  # Notice the bridge port is the vlan tagged interface
+    offload-sg off
+    address {{osad_br_mgmt_ipaddr}}
+    netmask {{osad_br_mgmt_submsk}}
+    gateway {{osad_br_mgmt_gatewy}}
+    dns-nameservers {{att_host_namesrv}}
+
+
+# Bridge for storage network
+# --------------------------
+# Used by all compute and storage nodes
+auto br-storage
+iface br-storage inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports {{att_vlan_103}}  # Notice the bridge port is the vlan tagged interface
+    offload-sg off
+    address {{osad_br_stor_ipaddr}}
+    netmask {{osad_br_stor_submsk}}
+    gateway {{osad_br_stor_gatewy}}
+    dns-nameservers {{att_host_namesrv}}
+
+
+# Source other interface files that may be found
+# ----------------------------------------------
+source /etc/network/interfaces.d/*.cfg

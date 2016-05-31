@@ -12,17 +12,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-- name: add prerequisites for the deploy-host
-  apt: name={{ item }} update_cache=yes state=present state=latest
-  with_items:
-    - aptitude
-    - build-essential
-    - git
-    - python-dev
-    - libffi-dev
-    - libssl-dev
-  ignore_errors: yes
-
-- name: download openstack-ansible project
-  git: repo=https://github.com/openstack/openstack-ansible.git version={{osa_snapshot}} dest=/opt/openstack-ansible update=no
+#
+# OPENSTACK-ANSIBLE:
+# All Hosts: Prerequisite Tasks
+- hosts: all
+  gather_facts: true
+  sudo: yes
+  roles:
+    - osa-deploy-prep-hosts
+  tags:
+    - osa-deploy-prep-hosts

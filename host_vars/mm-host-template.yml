@@ -1,0 +1,109 @@
+# att Environment: Deployment Type
+#   Options: mm, ms, sm, ss
+#   Multi-node, Single-node / Multi-NIC, Single-NIC
+att_deployment_type: mm
+
+# att Environment: AIO Deployment
+#   If "ms" is selected complete this section
+#   Only use for Multi-node/Single-NIC Installations
+att_ms_iface:
+att_ms_ipaddr:
+att_ms_submsk:
+att_ms_gateway:
+att_ms_namesrv:
+
+# att Environment: Deployment Type
+#   Options: aio, compute, infra, log
+#   Multi-node, Single-node / Multi-NIC, Single-NIC
+att_osad_type:
+
+# att Environment: Deploy Swift
+#   Options: true, false
+# swift_host_deploy: true
+
+# att Environment: Networking
+#   Networking Defaults
+att_host_gateway:
+att_host_namesrv:
+att_host_sdomain:
+
+# att Environment: Networking
+#   OSAD Required Definitions
+#   mgmt=br-mgmt, stor=br-storage, vlan=br-vlan, tunn=br-vxlan
+osad_br_mgmt_ipaddr:
+osad_br_mgmt_netwrk:
+osad_br_mgmt_submsk:
+osad_br_mgmt_bitmsk:
+osad_br_mgmt_gatewy:
+osad_br_stor_ipaddr:
+osad_br_stor_netwrk:
+osad_br_stor_submsk:
+osad_br_stor_bitmsk:
+osad_br_stor_gatewy:
+osad_br_vlan_ipaddr:
+osad_br_vlan_submsk:
+osad_br_tunn_ipaddr:
+osad_br_tunn_submsk:
+
+# att Environment: Networking
+#   Physical Definitions
+att_eth0: eth0
+att_eth1: eth1
+att_eth2: eth2
+att_eth3: eth3
+att_eth4: p4p1
+att_eth5: p4p2
+att_eth6: p10p1
+att_eth7: p10p2
+
+#   IP Address Definitions (Ethernet)
+att_eth0_ipaddr:
+att_eth0_submsk:
+att_eth1_ipaddr:
+att_eth1_submsk:
+att_eth2_ipaddr:
+att_eth2_submsk:
+att_eth3_ipaddr:
+att_eth3_submsk:
+att_eth4_ipaddr:
+att_eth4_submsk:
+att_eth5_ipaddr:
+att_eth5_submsk:
+att_eth6_ipaddr:
+att_eth6_submsk:
+att_eth7_ipaddr:
+att_eth7_submsk:
+
+# att Environment: Networking
+#   Bonding Definitions
+att_bond0: bond0
+att_bond1: bond1
+att_bond2: bond2
+
+#   IP Address Definitions (Bonding)
+att_bond0_ipaddr:
+att_bond0_submsk:
+att_bond1_ipaddr:
+att_bond1_submsk:
+att_bond2_ipaddr:
+att_bond2_submsk:
+
+# att Environment: Networking
+#   VLAN Definitions
+att_vlan_101: br-vlan.101
+att_vlid_101: 101
+att_vlan_102: br-vlan.102
+att_vlid_102: 102
+att_vlan_103: br-vlan.103
+att_vlid_103: 103
+
+
+#   IP Address Definitions (VLANs)
+att_vlan0_ipaddr:
+att_vlan0_submsk:
+att_vlan1_ipaddr:
+att_vlan1_submsk:
+att_vlan2_ipaddr:
+att_vlan2_submsk:
+att_vlan3_ipaddr:
+att_vlan3_submsk:

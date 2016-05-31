@@ -1,0 +1,106 @@
+---
+# Copyright 2016, AT&T, ASTRA, and it's Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: ensure that /etc/network/interfaces.d/ exists
+  file:
+    path: /etc/network/interfaces.d/
+    state: directory
+  tags:
+    - networking-dir-create
+
+#- name: copy network configuration
+#  template:
+#    src: att-deploy.cfg.j2
+#    dest: /etc/network/interfaces.d/att-deploy.cfg
+#  register: osa_interfaces
+#  tags:
+#    - networking-interfaces-file
+
+- name: make sure that we have our modules loaded first
+  template:
+    src: modules.j2
+    dest: /etc/modules
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  tags:
+    - att-network-deploy
+
+- name: make sure that the physical interfaces are loaded first
+  template:
+    src: interfaces-mm.j2
+    dest: /etc/network/interfaces
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: att_deployment_type == 'mm'
+  tags:
+    - att-network-deploy
+
+- name: create separate route tables for bond interfaces
+  lineinfile:
+    dest: /etc/iproute2/rt_tables
+    regexp: '^'
+    line: '1 rt2'
+    state: present
+    create: True
+  when: att_deployment_type == 'mm'
+  tags:
+    - att-network-deploy
+
+- name: now load up the bonds for our physical interfaces
+  template:
+    src: att-bonds.cfg.j2
+    dest: /etc/network/interfaces.d/att-bonds.cfg
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: att_deployment_type == 'mm'
+  tags:
+    - att-network-deploy
+
+- name: now load up the vlans
+  template:
+    src: att-vlans.cfg.j2
+    dest: /etc/network/interfaces.d/att-vlans.cfg
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: att_deployment_type == 'mm'
+  tags:
+    - att-network-deploy
+
+- name: load interfaces required by openstack-ansible
+  template:
+    src: att-osad.cfg.j2
+    dest: /etc/network/interfaces.d/att-osad.cfg
+    backup: yes
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  when: att_deployment_type == 'mm'
+  tags:
+    - att-network-deploy
+
+- name: ensure our interfaces.d configuration files are loaded automatically
+  lineinfile:
+    dest: /etc/network/interfaces
+    line: "source /etc/network/interfaces.d/*.cfg"
+  tags:
+    - att-network-deploy

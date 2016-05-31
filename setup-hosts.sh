@@ -1,4 +1,5 @@
----
+#!/bin/bash
+
 # Copyright 2016, AT&T, ASTRA, and it's Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,16 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: add prerequisites for the deploy-host
-  apt: name={{ item }} update_cache=yes state=present state=latest
-  with_items:
-    - aptitude
-    - build-essential
-    - git
-    - python-dev
-    - libffi-dev
-    - libssl-dev
-  ignore_errors: yes
+inventory=${INVENTORY:-inventory}
 
-- name: download openstack-ansible project
-  git: repo=https://github.com/openstack/openstack-ansible.git version={{osa_snapshot}} dest=/opt/openstack-ansible update=no
+ansible-playbook -i ${inventory} prep-hosts.yml $@

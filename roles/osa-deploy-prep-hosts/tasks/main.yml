@@ -13,16 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: add prerequisites for the deploy-host
-  apt: name={{ item }} update_cache=yes state=present state=latest
-  with_items:
-    - aptitude
-    - build-essential
-    - git
-    - python-dev
-    - libffi-dev
-    - libssl-dev
-  ignore_errors: yes
-
-- name: download openstack-ansible project
-  git: repo=https://github.com/openstack/openstack-ansible.git version={{osa_snapshot}} dest=/opt/openstack-ansible update=no
+- name: build /etc/hosts on single pass
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*{{ item }}$'
+    line: "{{ hostvars[item].ansible_default_ipv4.address }} {{item}} {{item}}.{{osa_domain}}"
+    state: present
+  when: hostvars[item].ansible_default_ipv4.address is defined
+  with_items: groups['all']

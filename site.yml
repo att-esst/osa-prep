@@ -23,6 +23,14 @@
   tags:
     - osa-deploy-prep
 
+- hosts: all
+  gather_facts: true
+  sudo: yes
+  roles:
+    - osa-deploy-tools
+  tags:
+    - osa-deploy-tools
+
 # Deployment Hosts
 - hosts: deploy-host
   sudo: yes
@@ -39,6 +47,28 @@
   tags:
     - osa-target-host
 
+- hosts: target-host
+  sudo: yes
+  roles:
+    - osa-deploy-networking
+  tags:
+    - osa-deploy-networking
+
+- hosts: target-host
+  sudo: yes
+  roles:
+    - osa-deploy-networking
+  tags:
+    - osa-deploy-networking
+
+# Logging Hosts
+- hosts: logging-host
+  sudo: yes
+  roles:
+    - osa-deploy-networking
+  tags:
+    - osa-deploy-networking
+
 # WHEN DEPLOYING CEPH VIA DOCKER:
 # Docker Hosts
 #- hosts: docker-host
@@ -49,37 +79,37 @@
 
 # CEPH-ANSIBLE:
 # Ceph-Ansible Monitors:
-- hosts: mons
-  become: True
-  roles:
-    - ceph-mon
+#- hosts: mons
+#  become: True
+#  roles:
+#    - ceph-mon
 
 # Ceph-Ansible Agents:
-- hosts: agents
-  become: True
-  roles:
-    - ceph-agent
+#- hosts: agents
+#  become: True
+#  roles:
+#    - ceph-agent
 
 # Ceph-Ansible OSDs:
-- hosts: osds
-  become: True
-  roles:
-    - ceph-osd
+#- hosts: osds
+#  become: True
+#  roles:
+#    - ceph-osd
 
 # Ceph-Ansible MDSs:
-- hosts: mdss
-  become: True
-  roles:
-    - ceph-mds
+#- hosts: mdss
+#  become: True
+#  roles:
+#    - ceph-mds
 
 # Ceph-Ansible RGWs:
-- hosts: rgws
-  become: True
-  roles:
-    - ceph-rgw
+#- hosts: rgws
+#  become: True
+#  roles:
+#    - ceph-rgw
 
 # Ceph-Ansible APIs:
-- hosts: restapis
-  become: True
-  roles:
-    - ceph-restapi
+#- hosts: restapis
+#  become: True
+#  roles:
+#    - ceph-restapi
