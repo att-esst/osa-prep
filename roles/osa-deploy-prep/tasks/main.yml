@@ -36,16 +36,17 @@
     - vlan
     - bridge-utils
   tags:
-    - vworks-install-prereqs
+    - att-install-prereqs
 
-- name: swift deployment preparation
-  apt: name={{ item }} update_cache=yes state=present state=latest
-  with_items:
-    - xfsprogs
-  when: swift_host_deploy == 'true'
-  ignore_errors: true
-  tags:
-    - vworks-install-prereqs
+# att Testing
+#- name: swift deployment preparation
+#  apt: name={{ item }} update_cache=yes state=present state=latest
+#  with_items:
+#    - xfsprogs
+#  when: swift_host_deploy == 'true'
+#  ignore_errors: true
+#  tags:
+#    - att-install-prereqs
 
 - name: set timezone to America/New_York
   raw: echo "America/New_York" | sudo tee /etc/timezone
@@ -58,10 +59,10 @@
 - name: upgrade all packages to the latest
   apt: upgrade=dist
   tags:
-    - vworks-full-dist-upgrade
+    - att-full-dist-upgrade
 
-# vWorks: Change not needed when running OSAD playbooks in order. This was a test.
+# att: Change not needed when running OSAD playbooks in order. This was a test.
 #- name: WORKAROUND add apt-keys for OSAD
 #  raw: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7C33BDC6
 #  tags:
-#    - vworks-workarounds
+#    - att-workarounds

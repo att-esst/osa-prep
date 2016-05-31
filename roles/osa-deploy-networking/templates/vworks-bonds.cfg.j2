@@ -12,26 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-auto {{vworks_bond0}}
-  iface {{vworks_bond0}} inet static
-    address {{vworks_bond0_ipaddr}}
-    gateway {{vworks_host_gateway}}
-    netmask {{vworks_bond0_submsk}}
-    dns-nameservers {{vworks_host_namesrv}}
-    dns-search {{vworks_host_sdomain}}
+auto {{att_bond0}}
+  iface {{att_bond0}} inet static
+    address {{att_bond0_ipaddr}}
+    gateway {{att_host_gateway}}
+    netmask {{att_bond0_submsk}}
+    dns-nameservers {{att_host_namesrv}}
+    dns-search {{att_host_sdomain}}
     # =-= Bonding Attributes =-=
     bond-mode balance-alb
     bond-miimon 100
-    bond-slaves {{vworks_eth2}} {{vworks_eth3}}
+    bond-slaves {{att_eth2}} {{att_eth3}}
 
-auto {{vworks_bond1}}
-  iface {{vworks_bond1}} inet manual
+auto {{att_bond1}}
+  iface {{att_bond1}} inet manual
     bond-mode active-backup
     bond-miimon 100
-    bond-slaves {{vworks_eth4}} {{vworks_eth6}}
+    bond-slaves {{att_eth4}} {{att_eth6}}
 
-auto {{vworks_bond2}}
-  iface {{vworks_bond2}} inet manual
+auto {{att_bond2}}
+  iface {{att_bond2}} inet manual
     bond-mode active-backup
     bond-miimon 100
-    bond-slaves {{vworks_eth5}} {{vworks_eth7}}
+    bond-slaves {{att_eth5}} {{att_eth7}}

@@ -16,12 +16,12 @@
 # Physical interface
 # ------------------
 # All nodes will have some physical interface
-auto {{vworks_ms_iface}}
-iface {{vworks_ms_iface}} inet static
-    address {{vworks_ms_ipaddr}}
-    netmask {{vworks_ms_submsk}}
-    gateway {{vworks_ms_gateway}}
-    dns-nameservers {{vworks_ms_namesrv}}
+auto {{att_ms_iface}}
+iface {{att_ms_iface}} inet static
+    address {{att_ms_ipaddr}}
+    netmask {{att_ms_submsk}}
+    gateway {{att_ms_gateway}}
+    dns-nameservers {{att_ms_namesrv}}
 
 
 # Bridge for vlan network
@@ -33,31 +33,31 @@ iface br-vlan inet static
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
-    bridge_ports {{vworks_ms_iface}}
+    bridge_ports {{att_ms_iface}}
     offload-sg off
     address {{osad_br_vlan_ipaddr}}
     netmask {{osad_br_vlan_submsk}}
-    gateway {{vworks_host_gateway}}
-    dns-nameservers {{vworks_host_namesrv}}
+    gateway {{att_host_gateway}}
+    dns-nameservers {{att_host_namesrv}}
 
 
 # Tagged vlan network interfaces
 # ------------------------------
 # Used in various bridges
-auto {{vworks_vlan_101}}
-iface {{vworks_vlan_101}} inet manual
+auto {{att_vlan_101}}
+iface {{att_vlan_101}} inet manual
     vlan-raw-device br-vlan
-    vlan_id {{vworks_vlid_101}}
+    vlan_id {{att_vlid_101}}
 
-auto {{vworks_vlan_102}}
-iface {{vworks_vlan_102}} inet manual
+auto {{att_vlan_102}}
+iface {{att_vlan_102}} inet manual
     vlan-raw-device br-vlan
-    vlan_id {{vworks_vlid_102}}
+    vlan_id {{att_vlid_102}}
 
-auto {{vworks_vlan_103}}
-iface {{vworks_vlan_103}} inet manual
+auto {{att_vlan_103}}
+iface {{att_vlan_103}} inet manual
     vlan-raw-device br-vlan
-    vlan_id {{vworks_vlid_103}}
+    vlan_id {{att_vlid_103}}
 
 
 # Bridge for vxlan network
@@ -68,11 +68,11 @@ iface br-vxlan inet manual
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
-    bridge_ports {{vworks_vlan_101}}  # Notice the bridge port is the vlan tagged interface
+    bridge_ports {{att_vlan_101}}  # Notice the bridge port is the vlan tagged interface
     offload-sg off
     address {{osad_br_tunn_ipaddr}}
     netmask {{osad_br_tunn_submsk}}
-    dns-nameservers {{vworks_host_namesrv}}
+    dns-nameservers {{att_host_namesrv}}
 
 
 # Bridge for management network
@@ -83,12 +83,12 @@ iface br-mgmt inet static
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
-    bridge_ports {{vworks_vlan_102}}  # Notice the bridge port is the vlan tagged interface
+    bridge_ports {{att_vlan_102}}  # Notice the bridge port is the vlan tagged interface
     offload-sg off
     address {{osad_br_mgmt_ipaddr}}
     netmask {{osad_br_mgmt_submsk}}
     gateway {{osad_br_mgmt_gatewy}}
-    dns-nameservers {{vworks_host_namesrv}}
+    dns-nameservers {{att_host_namesrv}}
 
 
 # Bridge for storage network
@@ -99,12 +99,12 @@ iface br-storage inet static
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
-    bridge_ports {{vworks_vlan_103}}  # Notice the bridge port is the vlan tagged interface
+    bridge_ports {{att_vlan_103}}  # Notice the bridge port is the vlan tagged interface
     offload-sg off
     address {{osad_br_stor_ipaddr}}
     netmask {{osad_br_stor_submsk}}
     gateway {{osad_br_stor_gatewy}}
-    dns-nameservers {{vworks_host_namesrv}}
+    dns-nameservers {{att_host_namesrv}}
 
 
 # Source other interface files that may be found

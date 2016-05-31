@@ -1,5 +1,5 @@
 # Main Variables:
-osa_domain: vlab.cso.att.com
+osa_domain: domain.com
 
 # "osa_snapshot" is either a branch, tag or full hex of the upstream osad project
 osa_snapshot: 13.0.1

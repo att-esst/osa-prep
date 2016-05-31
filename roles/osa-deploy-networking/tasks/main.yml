@@ -22,8 +22,8 @@
 
 #- name: copy network configuration
 #  template:
-#    src: vworks-deploy.cfg.j2
-#    dest: /etc/network/interfaces.d/vworks-deploy.cfg
+#    src: att-deploy.cfg.j2
+#    dest: /etc/network/interfaces.d/att-deploy.cfg
 #  register: osa_interfaces
 #  tags:
 #    - networking-interfaces-file
@@ -37,7 +37,7 @@
     group: root
     mode: "u=rw,g=r,o=r"
   tags:
-    - vworks-network-deploy
+    - att-network-deploy
 
 - name: make sure that the physical interfaces are loaded first
   template:
@@ -47,9 +47,9 @@
     owner: root
     group: root
     mode: "u=rw,g=r,o=r"
-  when: vworks_deployment_type == 'mm'
+  when: att_deployment_type == 'mm'
   tags:
-    - vworks-network-deploy
+    - att-network-deploy
 
 - name: create separate route tables for bond interfaces
   lineinfile:
@@ -58,49 +58,49 @@
     line: '1 rt2'
     state: present
     create: True
-  when: vworks_deployment_type == 'mm'
+  when: att_deployment_type == 'mm'
   tags:
-    - vworks-network-deploy
+    - att-network-deploy
 
 - name: now load up the bonds for our physical interfaces
   template:
-    src: vworks-bonds.cfg.j2
-    dest: /etc/network/interfaces.d/vworks-bonds.cfg
+    src: att-bonds.cfg.j2
+    dest: /etc/network/interfaces.d/att-bonds.cfg
     backup: yes
     owner: root
     group: root
     mode: "u=rw,g=r,o=r"
-  when: vworks_deployment_type == 'mm'
+  when: att_deployment_type == 'mm'
   tags:
-    - vworks-network-deploy
+    - att-network-deploy
 
 - name: now load up the vlans
   template:
-    src: vworks-vlans.cfg.j2
-    dest: /etc/network/interfaces.d/vworks-vlans.cfg
+    src: att-vlans.cfg.j2
+    dest: /etc/network/interfaces.d/att-vlans.cfg
     backup: yes
     owner: root
     group: root
     mode: "u=rw,g=r,o=r"
-  when: vworks_deployment_type == 'mm'
+  when: att_deployment_type == 'mm'
   tags:
-    - vworks-network-deploy
+    - att-network-deploy
 
 - name: load interfaces required by openstack-ansible
   template:
-    src: vworks-osad.cfg.j2
-    dest: /etc/network/interfaces.d/vworks-osad.cfg
+    src: att-osad.cfg.j2
+    dest: /etc/network/interfaces.d/att-osad.cfg
     backup: yes
     owner: root
     group: root
     mode: "u=rw,g=r,o=r"
-  when: vworks_deployment_type == 'mm'
+  when: att_deployment_type == 'mm'
   tags:
-    - vworks-network-deploy
+    - att-network-deploy
 
 - name: ensure our interfaces.d configuration files are loaded automatically
   lineinfile:
     dest: /etc/network/interfaces
     line: "source /etc/network/interfaces.d/*.cfg"
   tags:
-    - vworks-network-deploy
+    - att-network-deploy

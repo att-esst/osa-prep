@@ -19,12 +19,12 @@ iface br-mgmt inet static
     bridge_waitport 0
     bridge_fd 0
     # Bridge port references tagged interface
-    bridge_ports {{vworks_vlan_2200}}
+    bridge_ports {{att_vlan_2200}}
     address {{osad_br_mgmt_ipaddr}}
     netmask {{osad_br_mgmt_submsk}}
     gateway {{osad_br_mgmt_gatewy}}
-    dns-nameservers 8.8.8.8 # {{vworks_host_namesrv}}
-    dns-search {{vworks_host_sdomain}}
+    dns-nameservers 8.8.8.8 # {{att_host_namesrv}}
+    dns-search {{att_host_sdomain}}
     post-up ip route add {{osad_br_mgmt_netwrk}}/{{osad_br_mgmt_bitmsk}} dev br-mgmt src {{osad_br_mgmt_ipaddr}} table rt2
     post-up ip route add default via {{osad_br_mgmt_gatewy}} dev br-mgmt table rt2
     post-up ip rule add from {{osad_br_mgmt_ipaddr}}/32 table rt2
@@ -37,7 +37,7 @@ iface br-storage inet static
     bridge_waitport 0
     bridge_fd 0
     # Bridge port reference tagged interface
-    bridge_ports {{vworks_vlan_2098}}
+    bridge_ports {{att_vlan_2098}}
     address {{osad_br_stor_ipaddr}}
     netmask {{osad_br_stor_submsk}}
 
@@ -48,7 +48,7 @@ iface br-vlan inet manual
     bridge_waitport 0
     bridge_fd 0
     # Bridge port references untagged interface
-    bridge_ports {{vworks_bond1}}
+    bridge_ports {{att_bond1}}
 
 # OpenStack Networking VXLAN (tunnel/overlay) bridge
 auto br-vxlan
@@ -57,6 +57,6 @@ iface br-vxlan inet static
     bridge_waitport 0
     bridge_fd 0
     # Bridge port references tagged interface
-    bridge_ports {{vworks_vlan_2201}}
+    bridge_ports {{att_vlan_2201}}
     address {{osad_br_tunn_ipaddr}}
     netmask {{osad_br_tunn_submsk}}
